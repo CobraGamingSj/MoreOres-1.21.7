@@ -16,22 +16,22 @@ public class CustomTrades {
         MoreOresModInitializer.LOGGER.info("Loading CustomTrades for " + MoreOresModInitializer.MOD_ID + " mod.");
 
         TradeOfferHelper.registerWanderingTraderOffers(factories -> {
-            factories.addAll(MoreOresModInitializer.getId("emerald_for_tomato_seeds"), (entity, random) -> new TradeOffer(
+            factories.addAll(MoreOresModInitializer.byId("emerald_for_tomato_seeds"), (entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 3),
                     new ItemStack(ModItems.TOMATO_SEEDS),
                     6, 5, 0.05f
             ));
-            factories.addAll(MoreOresModInitializer.getId("emerald_for_pineapple_seeds"), (entity, random) -> new TradeOffer(
+            factories.addAll(MoreOresModInitializer.byId("emerald_for_pineapple_seeds"), (entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 5),
                     new ItemStack(ModItems.PINEAPPLE_SEEDS),
                     6, 5, 0.05f
             ));
-            factories.addAll(MoreOresModInitializer.getId("emerald_for_tomato"), (entity, random) -> new TradeOffer(
+            factories.addAll(MoreOresModInitializer.byId("emerald_for_tomato"), (entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 7),
                     new ItemStack(ModItems.TOMATO),
                     6, 5, 0.05f
             ));
-            factories.addAll(MoreOresModInitializer.getId("emerald_for_pineapple"), (entity, random) -> new TradeOffer(
+            factories.addAll(MoreOresModInitializer.byId("emerald_for_pineapple"), (entity, random) -> new TradeOffer(
                     new TradedItem(Items.EMERALD, 11),
                     new ItemStack(ModItems.PINEAPPLE),
                     6, 5, 0.05f

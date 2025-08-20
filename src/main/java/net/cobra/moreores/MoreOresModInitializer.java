@@ -2,6 +2,7 @@ package net.cobra.moreores;
 
 import net.cobra.moreores.block.ModBlocks;
 import net.cobra.moreores.block.data.GemPolisherButtonClick;
+import net.cobra.moreores.block.data.PolishingStateData;
 import net.cobra.moreores.block.entity.ModBlockEntityType;
 import net.cobra.moreores.component.type.ModConsumableComponents;
 import net.cobra.moreores.enchantment.entity.effect.EnchantmentEffects;
@@ -41,12 +42,12 @@ public class MoreOresModInitializer implements ModInitializer {
 	public static final String ID = "minecraft";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static Identifier getId(String id) {
+	public static Identifier byId(String id) {
 		return Identifier.of(MOD_ID, id);
 	}
 
 	public static RegistryKey<Item> setRegistryKey(String registryKey) {
-		return RegistryKey.of(RegistryKeys.ITEM, getId(registryKey));
+		return RegistryKey.of(RegistryKeys.ITEM, byId(registryKey));
 	}
 
 
@@ -75,7 +76,7 @@ public class MoreOresModInitializer implements ModInitializer {
 
 
 		// Gemstones Item Group Registry
-		Registry.register(Registries.ITEM_GROUP, getId("gemstones"), GEMSTONES);
+		Registry.register(Registries.ITEM_GROUP, byId("gemstones"), GEMSTONES);
 
 
 		// Fuel Registry
@@ -287,6 +288,7 @@ public class MoreOresModInitializer implements ModInitializer {
 		ModC2SNetworks.register();
 		ModS2CPayloadRegistry.registerS2CPackets();
 		PayloadTypeRegistry.playC2S().register(GemPolisherButtonClick.ID, GemPolisherButtonClick.PACKET_CODEC);
+		PayloadTypeRegistry.playC2S().register(PolishingStateData.ID, PolishingStateData.PACKET_CODEC);
 		ModC2SNetworks.registerServerC2S();
 
 		//ModConsumableComponents Registry

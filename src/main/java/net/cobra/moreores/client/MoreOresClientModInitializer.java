@@ -21,7 +21,7 @@ public class MoreOresClientModInitializer implements ClientModInitializer {
     public void onInitializeClient() {
         ModS2CNetworks.registerClientS2C();
 
-        Registry.register(Registries.RECIPE_DISPLAY, MoreOresModInitializer.getId("gem_polishing"), GemPolishingRecipeDisplay.SERIALIZER);
+        Registry.register(Registries.RECIPE_DISPLAY, MoreOresModInitializer.byId("gem_polishing"), GemPolishingRecipeDisplay.SERIALIZER);
 
         BlockRenderLayerMap.putBlock(ModBlocks.TOMATO_CROP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.PINEAPPLE_CROP, BlockRenderLayer.CUTOUT);

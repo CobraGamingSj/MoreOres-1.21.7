@@ -12,7 +12,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.math.BlockPos;
 
 public record GemPolisherData(long energy, BlockPos blockPos) implements CustomPayload {
-    public static final Id<GemPolisherData> ID = new Id<>(MoreOresModInitializer.getId("pos_energy"));
+    public static final Id<GemPolisherData> ID = new Id<>(MoreOresModInitializer.byId("pos_energy"));
 
     public void handlePacket(ClientPlayNetworking.Context context) {
         ClientWorld world = context.client().world;

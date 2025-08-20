@@ -2,6 +2,7 @@ package net.cobra.moreores.screen;
 
 import net.cobra.moreores.MoreOresModInitializer;
 import net.cobra.moreores.block.data.GemPolisherButtonClick;
+import net.cobra.moreores.block.data.PolishingStateData;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -15,12 +16,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class GemPolisherScreen extends HandledScreen<GemPolisherScreenHandler> {
     private static final int TEXTURE_WIDTH = 256;
     private static final int TEXTURE_HEIGHT = 256;
-    private static final Identifier TEXTURE = MoreOresModInitializer.getId("textures/gui/container/gem_polisher/gem_polisher_gui.png");
+    private static final Identifier TEXTURE = MoreOresModInitializer.byId("textures/gui/container/gem_polisher/gem_polisher_gui.png");
     private ButtonWidget start;
     private ButtonWidget pause;
     private ButtonWidget resume;
@@ -51,8 +53,33 @@ public class GemPolisherScreen extends HandledScreen<GemPolisherScreenHandler> {
         stop.visible = true;
     }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode == GLFW.GLFW_KEY_S) {
+            sendPolishControlPacket("start");
+            return true;
+        }
+        if(keyCode == GLFW.GLFW_KEY_P) {
+            sendPolishControlPacket("pause");
+            return true;
+        }
+        if(keyCode == GLFW.GLFW_KEY_R) {
+            sendPolishControlPacket("resume");
+            return true;
+        }
+        if(keyCode == GLFW.GLFW_KEY_SLASH) {
+            sendPolishControlPacket("stop");
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
     private ButtonWidget addButton(String translation, ButtonWidget.PressAction pressAction, int x, int y, String tooltip) {
         return this.addDrawableChild(ButtonWidget.builder(Text.translatable(translation), pressAction).dimensions(x, y, 32, 20).tooltip(Tooltip.of(Text.literal(tooltip))).build());
+    }
+
+    private void sendPolishControlPacket (String action) {
+        ClientPlayNetworking.send(new PolishingStateData(handler.blockEntity.getPos(), action));
     }
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
