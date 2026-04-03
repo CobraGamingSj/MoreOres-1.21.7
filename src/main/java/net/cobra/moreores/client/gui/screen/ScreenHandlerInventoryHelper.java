@@ -1,4 +1,4 @@
-package net.cobra.moreores.screen;
+package net.cobra.moreores.client.gui.screen;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

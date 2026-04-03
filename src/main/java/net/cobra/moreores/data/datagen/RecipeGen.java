@@ -285,7 +285,7 @@ public class RecipeGen extends FabricRecipeProvider {
                                         .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                                                 .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(getRecipeName(ModItems.RADIANT) + "_from_ruby")));
 
-                createShaped(RecipeCategory.MISC, ModBlocks.GEM_POLISHER_BLOCK, 1)
+                createShaped(RecipeCategory.MISC, ModBlocks.GEM_PURIFIER_BLOCK, 1)
                         .pattern("III")
                         .pattern("III")
                         .pattern("B B")
@@ -293,7 +293,7 @@ public class RecipeGen extends FabricRecipeProvider {
                         .input('B', Blocks.IRON_BARS)
                         .criterion(hasItem(Blocks.IRON_BLOCK), conditionsFromItem(Blocks.IRON_BLOCK))
                         .criterion(hasItem(Blocks.IRON_BARS), conditionsFromItem(Blocks.IRON_BARS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(getRecipeName(ModBlocks.GEM_POLISHER_BLOCK))));
+                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(getRecipeName(ModBlocks.GEM_PURIFIER_BLOCK))));
 
                 createShaped(RecipeCategory.COMBAT, ModItems.RADIANT_SWORD, 1)
                         .pattern(" I ")

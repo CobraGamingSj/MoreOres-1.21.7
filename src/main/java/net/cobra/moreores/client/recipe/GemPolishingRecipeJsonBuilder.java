@@ -1,6 +1,6 @@
 package net.cobra.moreores.client.recipe;
 
-import net.cobra.moreores.recipe.GemPolisherRecipe;
+import net.cobra.moreores.recipe.GemPurifierRecipe;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementRequirements;
@@ -44,7 +44,7 @@ public class GemPolishingRecipeJsonBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         this.criterion.forEach(builder::criterion);
-        GemPolisherRecipe gemPolishingRecipe = new GemPolisherRecipe(this.ingredient, this.output);
+        GemPurifierRecipe gemPolishingRecipe = new GemPurifierRecipe(this.ingredient, this.output);
         exporter.accept(recipeId, gemPolishingRecipe, builder.build(recipeId.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
     }
 

@@ -1,10 +1,12 @@
-package net.cobra.moreores.screen;
+package net.cobra.moreores.client.gui.screen;
 
 import net.cobra.moreores.block.ModBlocks;
-import net.cobra.moreores.block.data.GemPolisherData;
-import net.cobra.moreores.block.entity.GemPolisherBlockEntity;
+import net.cobra.moreores.block.data.GemPurifierData;
+import net.cobra.moreores.block.entity.gem_polisher.GemPurifierBlockEntity;
 import net.cobra.moreores.item.ModItems;
 import net.cobra.moreores.registry.ModItemTags;
+import net.cobra.moreores.screen.EnergySlot;
+import net.cobra.moreores.screen.GemPurifierInputSlot;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,43 +23,34 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHandlerInventoryHelper {
+public class GemPurifierScreenHandler extends ScreenHandler implements ScreenHandlerInventoryHelper {
     private final Inventory inventory;
     private final ScreenHandlerContext context;
     private final PropertyDelegate propertyDelegate;
-    public final GemPolisherBlockEntity blockEntity;
+    public final GemPurifierBlockEntity blockEntity;
 
     // Client Side Constructor
-    public GemPolisherScreenHandler(int syncId, PlayerInventory playerInventory, GemPolisherData data) {
+    public GemPurifierScreenHandler(int syncId, PlayerInventory playerInventory, GemPurifierData data) {
         this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(data.blockPos()),
                 new ArrayPropertyDelegate(2));
     }
 
     // Main Constructor
-    public GemPolisherScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
-        super(ModScreenHandlerType.GEM_POLISHING_SCREEN_HANDLER, syncId);
+    public GemPurifierScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate propertyDelegate) {
+        super(ModScreenHandlerType.GEM_PURIFYING_SCREEN_HANDLER, syncId);
         checkSize((Inventory) blockEntity, 15);
 
         this.inventory = ((Inventory) blockEntity);
         this.context = ScreenHandlerContext.create(blockEntity.getWorld(), blockEntity.getPos());
         this.propertyDelegate = propertyDelegate;
-        this.blockEntity = (GemPolisherBlockEntity) blockEntity;
+        this.blockEntity = (GemPurifierBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(inventory, 0, 83, 13)); // Input
-        this.addSlot(new Slot(inventory, 1, 83, 61)); // Result
-        this.addSlot(new Slot(inventory, 2, 39, 36)); // Energy Input
-        this.addSlot(new Slot(inventory, 3, 150, 16));
-        this.addSlot(new Slot(inventory, 4, 150, 34));
-        this.addSlot(new Slot(inventory, 5, 150, 52));
-        this.addSlot(new Slot(inventory, 6, 150, 70));
-        this.addSlot(new Slot(inventory, 7, 132, 16));
-        this.addSlot(new Slot(inventory, 8, 132, 34));
-        this.addSlot(new Slot(inventory, 9, 132, 52));
-        this.addSlot(new Slot(inventory, 10, 132, 70));
-        this.addSlot(new Slot(inventory, 11, 114, 16));
-        this.addSlot(new Slot(inventory, 12, 114, 34));
-        this.addSlot(new Slot(inventory, 13, 114, 52));
-        this.addSlot(new Slot(inventory, 14, 114, 70));
+        this.addSlot(new GemPurifierInputSlot(inventory, 0, 79, 11)); // Input
+        this.addSlot(new Slot(inventory, 1, 79, 61)); // Result
+        this.addSlot(new EnergySlot(inventory, 2, 39, 36)); // Energy Input
+
+        addFirstAdditionalInventory(inventory);
+        addSecondAdditionalInventory(inventory);
 
         addPlayerGenericInventory(playerInventory);
         addPlayerHotbarInventory(playerInventory);
@@ -70,11 +63,11 @@ public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHan
     }
 
     public int progressGetter() {
-        int progress = this.propertyDelegate.get(0);
-        int maxProgress = this.propertyDelegate.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the width in pixels of your arrow
+        int progress = this.propertyDelegate.get(0); //Progress
+        int maxProgress = this.propertyDelegate.get(1); //Max Progress
+        int progressArrowSize = 27; //Height of progress arrow
 
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize/ maxProgress : 0;
     }
 
     @Override
@@ -82,7 +75,7 @@ public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHan
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
 
-        if(slot != null && slot.hasStack()) {
+        if(slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             stack = originalStack.copy();
 
@@ -130,7 +123,7 @@ public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHan
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, ModBlocks.GEM_POLISHER_BLOCK);
+        return canUse(this.context, player, ModBlocks.GEM_PURIFIER_BLOCK);
     }
 
     @Override
@@ -149,6 +142,18 @@ public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHan
         }
     }
 
+    public void addFirstAdditionalInventory(Inventory playerInventory) {
+        for (int i = 0; i < 8; ++i) {
+            this.addSlot(new Slot(playerInventory, 3 + i, 26 + i * 18, 95));
+        }
+    }
+
+    public void addSecondAdditionalInventory(Inventory playerInventory) {
+        for (int i = 0; i < 4; ++i) {
+            this.addSlot(new Slot(playerInventory, 11 +  i, 179, 115 + i * 18));
+        }
+    }
+
     @Override
     public BlockEntity getBlockEntity(BlockPos pos, BlockState state, World world) {
         return this.blockEntity;
@@ -158,7 +163,7 @@ public class GemPolisherScreenHandler extends ScreenHandler implements ScreenHan
         return this.blockEntity.energyStorage.getAmount();
     }
 
-    public long getMaxEnergy() {
+    public long getEnergyCap() {
         return this.blockEntity.energyStorage.getCapacity();
     }
 

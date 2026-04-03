@@ -41,7 +41,7 @@ public class LootTableGenerator extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.JADE_BLOCK);
         addDrop(ModBlocks.PYROPE_BLOCK);
         addDrop(ModBlocks.ENERGY_BLOCK);
-        addDrop(ModBlocks.GEM_POLISHER_BLOCK);
+        addDrop(ModBlocks.GEM_PURIFIER_BLOCK);
 
         addDrop(ModBlocks.RAW_RUBY_BLOCK);
         addDrop(ModBlocks.RAW_SAPPHIRE_BLOCK);

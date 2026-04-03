@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"1": "moreores:block/gem_polisher/body_rp_energy",
-		"3": "moreores:block/gem_polisher/legs",
-		"4": "moreores:block/gem_polisher/tray",
-		"particle": "moreores:block/gem_polisher/gem_polisher_break"
+		"1": "moreores:block/gem_purifier/body_rp_energy",
+		"3": "moreores:block/gem_purifier/legs",
+		"4": "moreores:block/gem_purifier/tray",
+		"particle": "moreores:block/gem_purifier/gem_purifier_break"
 	},
 	"elements": [
 		{

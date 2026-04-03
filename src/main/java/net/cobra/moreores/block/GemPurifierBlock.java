@@ -2,7 +2,7 @@ package net.cobra.moreores.block;
 
 import com.mojang.serialization.MapCodec;
 import net.cobra.moreores.MoreOresModInitializer;
-import net.cobra.moreores.block.entity.GemPolisherBlockEntity;
+import net.cobra.moreores.block.entity.gem_polisher.GemPurifierBlockEntity;
 import net.cobra.moreores.block.entity.TickableBlockEntity;
 import net.cobra.moreores.item.ModItems;
 import net.cobra.moreores.registry.ModItemTags;
@@ -31,19 +31,19 @@ import net.minecraft.world.World;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
-public class GemPolisherBlock extends BlockWithEntity implements BlockEntityProvider {
+public class GemPurifierBlock extends BlockWithEntity implements BlockEntityProvider {
     private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 14, 16);
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty REDSTONE_POWERED = BooleanProperty.of("redstone_powered");
     public static final BooleanProperty HAS_ENERGY = BooleanProperty.of("has_energy");
-    public static final MapCodec<GemPolisherBlock> CODEC = GemPolisherBlock.createCodec(GemPolisherBlock::new);
+    public static final MapCodec<GemPurifierBlock> CODEC = GemPurifierBlock.createCodec(GemPurifierBlock::new);
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CODEC;
     }
 
-    protected GemPolisherBlock(Settings settings) {
+    protected GemPurifierBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(REDSTONE_POWERED, false));
     }
@@ -62,15 +62,15 @@ public class GemPolisherBlock extends BlockWithEntity implements BlockEntityProv
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new GemPolisherBlockEntity(pos, state);
+        return new GemPurifierBlockEntity(pos, state);
     }
 
     @Override
     protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
         if (state.getBlock() != state.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof GemPolisherBlockEntity) {
-                ItemScatterer.spawn(world, pos, (GemPolisherBlockEntity) blockEntity);
+            if (blockEntity instanceof GemPurifierBlockEntity) {
+                ItemScatterer.spawn(world, pos, (GemPurifierBlockEntity) blockEntity);
                 world.updateComparators(pos,this);
             }
             super.onStateReplaced(state, world, pos, moved);
@@ -103,13 +103,13 @@ public class GemPolisherBlock extends BlockWithEntity implements BlockEntityProv
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(Screen.hasAltDown()) {
             ItemStack heldStack = player.getStackInHand(Hand.MAIN_HAND);
-            if(!heldStack.isEmpty() && world.getBlockEntity(pos) instanceof GemPolisherBlockEntity be) {
-                ItemStack energyStack = be.getStack(GemPolisherBlockEntity.ENERGY_SOURCE_SLOT);
-                ItemStack inputStack = be.getStack(GemPolisherBlockEntity.INGREDIENT_SLOT);
+            if(!heldStack.isEmpty() && world.getBlockEntity(pos) instanceof GemPurifierBlockEntity be) {
+                ItemStack energyStack = be.getStack(GemPurifierBlockEntity.ENERGY_SOURCE_SLOT);
+                ItemStack inputStack = be.getStack(GemPurifierBlockEntity.INGREDIENT_SLOT);
                 if(!world.isClient) {
                     if((heldStack.getItem() == ModItems.ENERGY_INGOT || heldStack.getItem() == ModBlocks.ENERGY_BLOCK.asItem())) {
                         if(energyStack.isEmpty()) {
-                            be.setStack(GemPolisherBlockEntity.ENERGY_SOURCE_SLOT, heldStack.copyWithCount(1));
+                            be.setStack(GemPurifierBlockEntity.ENERGY_SOURCE_SLOT, heldStack.copyWithCount(1));
                             heldStack.decrement(1);
                         } else if (ItemStack.areItemsEqual(energyStack, heldStack) && energyStack.getCount() < energyStack.getMaxCount()) {
                             energyStack.increment(1);
@@ -119,7 +119,7 @@ public class GemPolisherBlock extends BlockWithEntity implements BlockEntityProv
                     }
                     if(heldStack.isIn(ModItemTags.RAW_GEMSTONE)) {
                         if(inputStack.isEmpty()) {
-                            be.setStack(GemPolisherBlockEntity.INGREDIENT_SLOT, heldStack.copyWithCount(heldStack.getCount()));
+                            be.setStack(GemPurifierBlockEntity.INGREDIENT_SLOT, heldStack.copyWithCount(heldStack.getCount()));
                             heldStack.decrement(heldStack.getCount());
                         } else if (ItemStack.areItemsEqual(inputStack, heldStack)) {
                             inputStack.increment(heldStack.getCount());
@@ -133,7 +133,7 @@ public class GemPolisherBlock extends BlockWithEntity implements BlockEntityProv
         }
 
         if(!world.isClient){
-            NamedScreenHandlerFactory screenHandlerFactory = ((GemPolisherBlockEntity) world.getBlockEntity(pos));
+            NamedScreenHandlerFactory screenHandlerFactory = ((GemPurifierBlockEntity) world.getBlockEntity(pos));
 
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);

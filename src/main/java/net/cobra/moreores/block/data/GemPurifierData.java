@@ -1,8 +1,8 @@
 package net.cobra.moreores.block.data;
 
 import net.cobra.moreores.MoreOresModInitializer;
-import net.cobra.moreores.block.entity.GemPolisherBlockEntity;
-import net.cobra.moreores.screen.GemPolisherScreenHandler;
+import net.cobra.moreores.block.entity.gem_polisher.GemPurifierBlockEntity;
+import net.cobra.moreores.client.gui.screen.GemPurifierScreenHandler;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.RegistryByteBuf;
@@ -11,27 +11,27 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.math.BlockPos;
 
-public record GemPolisherData(long energy, BlockPos blockPos) implements CustomPayload {
-    public static final Id<GemPolisherData> ID = new Id<>(MoreOresModInitializer.byId("pos_energy"));
+public record GemPurifierData(long energy, BlockPos blockPos) implements CustomPayload {
+    public static final Id<GemPurifierData> ID = new Id<>(MoreOresModInitializer.getId("pos_energy"));
 
     public void handlePacket(ClientPlayNetworking.Context context) {
         ClientWorld world = context.client().world;
         if (world == null) return;
 
-        if (world.getBlockEntity(this.blockPos) instanceof GemPolisherBlockEntity blockEntity) {
+        if (world.getBlockEntity(this.blockPos) instanceof GemPurifierBlockEntity blockEntity) {
             blockEntity.setEnergyLevel(this.energy);
 
-            if (context.player().currentScreenHandler instanceof GemPolisherScreenHandler screenHandler && screenHandler.blockEntity.getPos().equals(this.blockPos)) {
+            if (context.player().currentScreenHandler instanceof GemPurifierScreenHandler screenHandler && screenHandler.blockEntity.getPos().equals(this.blockPos)) {
                 blockEntity.setEnergyLevel(this.energy);
             }
         }
     }
 
-    public static final PacketCodec<RegistryByteBuf, GemPolisherData> PACKET_CODEC =
+    public static final PacketCodec<RegistryByteBuf, GemPurifierData> PACKET_CODEC =
             PacketCodec.tuple(
-                    PacketCodecs.LONG, GemPolisherData::energy,
-                    BlockPos.PACKET_CODEC, GemPolisherData::blockPos,
-                    GemPolisherData::new
+                    PacketCodecs.LONG, GemPurifierData::energy,
+                    BlockPos.PACKET_CODEC, GemPurifierData::blockPos,
+                    GemPurifierData::new
             );
 
     @Override

@@ -59,7 +59,7 @@
   "block.moreores.raw_jade_block": "Raw Jade Block",
   "block.moreores.ruby_lamp": "Ruby Lamp",
 
-  "block.moreores.gem_polisher_block": "Gem Polisher",
+  "block.moreores.gem_purifier_block": "Gem Purifier",
 
   "block.moreores.ruby_ore": "Ruby Ore",
   "block.moreores.deepslate_ruby_ore": "Deepslate Ruby Ore",
@@ -148,7 +148,7 @@
 
   "tooltip.moreores.energy_block": "Gives you Poison, Blindness and Levitation",
   "moreores.tooltip.gem": "Gem",
-  "tooltip.moreores.gem_polisher": "Polish gemstones",
+  "tooltip.moreores.gem_purifier": "Polish gemstones",
 
   "upgrade.moreores.ruby_upgrade": "Smithing Template",
   "upgrade.moreores.radiant_upgrade": "Smithing Template",

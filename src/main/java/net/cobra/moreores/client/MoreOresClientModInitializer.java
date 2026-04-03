@@ -3,11 +3,11 @@ package net.cobra.moreores.client;
 import net.cobra.moreores.MoreOresModInitializer;
 import net.cobra.moreores.block.ModBlocks;
 import net.cobra.moreores.block.entity.ModBlockEntityType;
-import net.cobra.moreores.client.render.block.entity.GemPolisherBlockEntityRenderer;
+import net.cobra.moreores.client.render.block.entity.GemPurifierBlockEntityRenderer;
 import net.cobra.moreores.networking.ModS2CNetworks;
 import net.cobra.moreores.recipe.display.GemPolishingRecipeDisplay;
-import net.cobra.moreores.screen.GemPolisherScreen;
-import net.cobra.moreores.screen.ModScreenHandlerType;
+import net.cobra.moreores.client.gui.screen.GemPurifierScreen;
+import net.cobra.moreores.client.gui.screen.ModScreenHandlerType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -21,15 +21,15 @@ public class MoreOresClientModInitializer implements ClientModInitializer {
     public void onInitializeClient() {
         ModS2CNetworks.registerClientS2C();
 
-        Registry.register(Registries.RECIPE_DISPLAY, MoreOresModInitializer.byId("gem_polishing"), GemPolishingRecipeDisplay.SERIALIZER);
+        Registry.register(Registries.RECIPE_DISPLAY, MoreOresModInitializer.getId("gem_polishing"), GemPolishingRecipeDisplay.SERIALIZER);
 
         BlockRenderLayerMap.putBlock(ModBlocks.TOMATO_CROP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModBlocks.PINEAPPLE_CROP, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(ModBlocks.GEM_POLISHER_BLOCK, BlockRenderLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(ModBlocks.GEM_PURIFIER_BLOCK, BlockRenderLayer.TRANSLUCENT);
 
-        HandledScreens.register(ModScreenHandlerType.GEM_POLISHING_SCREEN_HANDLER, GemPolisherScreen::new);
+        HandledScreens.register(ModScreenHandlerType.GEM_PURIFYING_SCREEN_HANDLER, GemPurifierScreen::new);
 
-        BlockEntityRendererFactories.register(ModBlockEntityType.GEM_POLISHER_BLOCK_ENTITY, GemPolisherBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntityType.GEM_PURIFIER_BLOCK_ENTITY, GemPurifierBlockEntityRenderer::new);
     }
 }

@@ -3,7 +3,7 @@ package net.cobra.moreores.recipe.input;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.input.RecipeInput;
 
-public record GemPolishingRecipeInput(ItemStack inputStack) implements RecipeInput {
+public record GemPurifyingRecipeInput(ItemStack inputStack) implements RecipeInput {
     @Override
     public ItemStack getStackInSlot(int slot) {
         return inputStack;
