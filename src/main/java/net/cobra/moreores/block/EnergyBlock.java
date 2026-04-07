@@ -22,7 +22,7 @@ public class EnergyBlock extends Block {
     }
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
             if (pos.getY() == world.getSeaLevel()) {
                 serverWorld.setWeather(0, 6000, true, true);
             }

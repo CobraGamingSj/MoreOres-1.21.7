@@ -42,7 +42,7 @@ public record GemPurifierButtonClick(int buttonID, BlockPos pos) implements Cust
                 }
             }
 
-        MoreOresModInitializer.LOGGER.info("Received button click with ID: {} at {}", buttonID, "'" + pos.getX() + "[" + pos.getY() + ", " + pos.getZ() + "]");
+        MoreOresModInitializer.LOGGER.info("Received button click with ID: {} at {}", buttonID, "[" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "]");
 
         }
 

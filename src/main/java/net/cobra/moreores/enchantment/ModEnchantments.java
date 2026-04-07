@@ -22,7 +22,7 @@ public class ModEnchantments {
 
         register(registerable, THUNDER_STRIKER, Enchantment.builder(
                 Enchantment.definition(
-                        items.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                        items.getOrThrow(ItemTags.SWORDS),
                         5,
                         3,
                         Enchantment.leveledCost(7, 10),

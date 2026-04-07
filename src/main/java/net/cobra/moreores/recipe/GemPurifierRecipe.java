@@ -47,7 +47,7 @@ public class GemPurifierRecipe implements Recipe<GemPurifyingRecipeInput> {
 
     @Override
     public boolean matches(GemPurifyingRecipeInput input, World world) {
-        if (world.isClient) return false;
+        if (world.isClient()) return false;
         return this.ingredient.test(input.inputStack());
     }
 

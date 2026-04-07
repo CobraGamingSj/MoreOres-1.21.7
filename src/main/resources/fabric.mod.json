@@ -8,6 +8,7 @@
 	"authors": [
 		"CobraGamingSJ"
 	],
+	"accessWidener": "moreores.accesswidener",
 	"contact": {
 		"sources": "https://github.com/CobraGamingSj/MoreOres-Fabric-1.21.7",
 		"issues": "https://github.com/CobraGamingSj/MoreOres-Fabric-1.21/issues"
@@ -31,6 +32,8 @@
 	],
 	"depends": {
 		"fabricloader": [
+			"0.18.6",
+			"0.18.5",
 			"0.18.4",
 			"0.18.3",
 			"0.18.2",

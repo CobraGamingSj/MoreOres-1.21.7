@@ -1,3 +1,4 @@
+
 package net.cobra.moreores.util;
 
 import net.cobra.moreores.MoreOresModInitializer;
